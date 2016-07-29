@@ -1,0 +1,17 @@
+{
+  "name": "ping-api",
+  "version": "0.0.1",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {},
+  "devDependencies": {
+    "cors": "^2.7.1",
+    "express": "^4.13.3"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "startmon": "nodemon app.js"
+  },
+  "author": "",
+  "license": ""
+}
