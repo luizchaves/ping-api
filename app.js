@@ -60,7 +60,7 @@ function parsePing(pingString) {
       pingJSON = {};
 
   // extract address
-  regex = /\((.+)\)/;
+  regex = /\(([\d\.]+)\)/;
   matched = regex.exec(pingString)
   address = matched[1];
 
@@ -75,13 +75,13 @@ function parsePing(pingString) {
   }
 
   // extract statistics
-  regex = /(\d+) packets transmitted, (\d+) packets received, ([\d\.]+%) packet loss/
+  regex = /(\d+) packets transmitted, (\d+) (packets )?received, ([\d\.]+%) packet loss/
   matched = regex.exec(pingString);
   statistics.transmitted = matched[1];
   statistics.received = matched[2];
   statistics.losted = matched[3];
 
-  regex = /min\/avg\/max\/stddev = ([\d\.]+)\/([\d\.]+)\/([\d\.]+)\/([\d\.]+) ms/
+  regex = /min\/avg\/max\/(stddev|mdev) = ([\d\.]+)\/([\d\.]+)\/([\d\.]+)\/([\d\.]+) ms/
   matched = regex.exec(pingString);
   statistics.min = matched[1];
   statistics.avg = matched[2];

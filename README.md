@@ -4,15 +4,16 @@ Este projeto tem como objetivo executar o comando ping do terminal através de e
 
 ## Instalação
 
-Para executar o projeto é necessário que seu computador possui o node.js instalado. Logo em seguida deve-se copiar o projeto através do comando:
+Para executar o projeto é necessário que seu computador possua o node.js mais recente instalado. Logo em seguida, deve-se copiar o projeto através do comando:
 
 ```
 $ git clone https://github.com/lucachaves/ping-api.git
 ```
 
-O projeto possui alguma dependências que precisam ser instaladas. Para isto execute a instalação dos pacotes via o npm:
+O projeto possui alguma dependências que precisam ser instaladas. Para isto, acesse a cópia e execute a instalação dos pacotes via o npm:
 
 ```
+$ cd ping-api
 $ npm install
 ```
 
