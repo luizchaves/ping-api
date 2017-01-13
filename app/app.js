@@ -1,7 +1,9 @@
-var express = require('express');
-var cors = require('cors');
-var app = express();
 var exec = require('child_process').exec;
+var app = require('express')();
+var bodyParser = require('body-parser');
+var bodyParserJsonError = require('express-body-parser-json-error');
+var cors = require('cors');
+var port = process.env.PORT || 5000;
 
 var successful = function(req, res, json){
   res.status(200).json(json);
@@ -10,16 +12,24 @@ var unsuccessful = function(req, res){
   res.status(500).json({error: "Internal server error"});
 }
 
+app.use(bodyParser.urlencoded({ extended: true })); // application/x-www-form-urlencoded
+app.use(bodyParser.json()); // application/json
+app.use(bodyParserJsonError());
 app.use(cors());
 
 app.get('/v1/ping/:address', function (req, res) {
-  var address = req.params.address;
+  let address = req.params.address;
+  pingCommand(req, res, address, 1, successful, unsuccessful);
+});
+
+app.post('/v1/ping', function (req, res) {
+  let address = req.body.address;
   pingCommand(req, res, address, 1, successful, unsuccessful);
 });
 
 app.get('/v1/ping/:address/:count', function (req, res) {
-  var address = req.params.address;
-  var count = req.params.count;
+  let address = req.params.address;
+  let count = req.params.count;
   pingCommand(req, res, address, count, successful, unsuccessful);
 });
 
@@ -27,18 +37,18 @@ app.get('*', function(req, res){
   res.status(404).send({error: 'Sorry, endpoind not found'});
 });
 
-app.listen(5000, function () {
-  console.log('ping api: http://localhost:5000/v1/ping/:address/:count');
+app.listen(port, function () {
+  console.log('ping api: http://localhost:'+port+'/v1/ping/:address/:count');
 });
 
 function pingCommand(req, res, address, count, successful, unsuccessful){
-  var command = 'ping -c '+count+' '+address;
+  let command = 'ping -c '+count+' '+address;
   console.log(command);
   exec(command, function(error, stdout, stderr) {
     if(error !== null){
       unsuccessful(req, res);
     } else {
-      var json = parsePing(stdout);
+      let json = parsePing(stdout);
       if(json)
         successful(req, res, json);
       else
@@ -52,7 +62,7 @@ function parsePing(pingString) {
   if(!pingString.includes('packet'))
     return null;
 
-  var matched,
+  let matched,
       regex,
       address,
       statistics = {},

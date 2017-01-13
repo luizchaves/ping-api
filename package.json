@@ -5,12 +5,17 @@
   "main": "app.js",
   "dependencies": {},
   "devDependencies": {
+    "body-parser": "^1.15.2",
     "cors": "^2.7.1",
-    "express": "^4.13.3"
+    "express": "^4.13.3",
+    "express-body-parser-json-error": "^0.1.0",
+    "jasmine-node": "^1.14.5",
+    "request": "^2.74.0"
   },
   "scripts": {
-    "start": "node app.js",
-    "startmon": "nodemon app.js"
+    "start": "node app/app.js",
+    "startmon": "./node_modules/.bin/nodemon app/app.js",
+    "test": "./node_modules/.bin/jasmine-node spec"
   },
   "author": "",
   "license": ""
